@@ -14,7 +14,7 @@ public class MySQLProjectDAO implements ProjectDAO {
 	public boolean save(Project project) throws ModelException {
 		DBHandler db = new DBHandler();
 		
-		String sqlInsert = "INSERT INTO companies VALUES (DEFAULT, ?, ?, ?, ?, ?);";
+		String sqlInsert = "INSERT INTO projects VALUES (DEFAULT, ?, ?, ?, ?, ?);";
 		
 		db.prepareStatement(sqlInsert);
 		
@@ -35,12 +35,12 @@ public class MySQLProjectDAO implements ProjectDAO {
 	public boolean update(Project project) throws ModelException {
 		DBHandler db = new DBHandler();
 		
-		String sqlUpdate = "UPDATE companies "
+		String sqlUpdate = "UPDATE projects "
 				+ " SET name = ?, "
 				+ " description = ?, "
 				+ " start = ?, "
 				+ " end = ?, "
-				+ " project_id = ? "
+				+ " user_id = ? "
 				+ " WHERE id = ?; "; 
 		
 		db.prepareStatement(sqlUpdate);
@@ -64,7 +64,7 @@ public class MySQLProjectDAO implements ProjectDAO {
 	public boolean delete(Project project) throws ModelException {
 		DBHandler db = new DBHandler();
 		
-		String sqlDelete = " DELETE FROM companies "
+		String sqlDelete = " DELETE FROM projects "
 		         + " WHERE id = ?;";
 
 		db.prepareStatement(sqlDelete);		
@@ -77,11 +77,11 @@ public class MySQLProjectDAO implements ProjectDAO {
 	public List<Project> listAll() throws ModelException {
 		DBHandler db = new DBHandler();
 		
-		List<Project> companies = new ArrayList<Project>();
+		List<Project> projects = new ArrayList<Project>();
 			
 		// Declara uma instrução SQL
 		String sqlQuery = " SELECT c.id as 'project_id', c.*, u.* \n"
-				+ " FROM companies c \n"
+				+ " FROM projects c \n"
 				+ " INNER JOIN users u \n"
 				+ " ON c.user_id = u.id;";
 		
@@ -100,39 +100,39 @@ public class MySQLProjectDAO implements ProjectDAO {
 			project.setDescription(db.getString("description"));
 			project.setStart(db.getDate("start"));
 			project.setEnd(db.getDate("end"));
-		
+			project.setUser(user);
 			
-			companies.add(project);
+			projects.add(project);
 		}
 		
-		return companies;
+		return projects;
 	}
 
 	@Override
 	public Project findById(int id) throws ModelException {
 		DBHandler db = new DBHandler();
 		
-		String sql = "SELECT * FROM companies WHERE id = ?;";
+		String sql = "SELECT * FROM projects WHERE id = ?;";
 		
 		db.prepareStatement(sql);
 		db.setInt(1, id);
 		db.executeQuery();
 		
-		Project c = null;
+		Project p = null;
 		while (db.next()) {
-			c = new Project(id);
-			c.setName(db.getString("name"));
-			c.setDescription(db.getString("description"));
-			c.setStart(db.getDate("start"));
-			c.setEnd(db.getDate("end"));
+			p = new Project(id);
+			p.setName(db.getString("name"));
+			p.setDescription(db.getString("description"));
+			p.setStart(db.getDate("start"));
+			p.setEnd(db.getDate("end"));
 			
 			UserDAO userDAO = DAOFactory.createDAO(UserDAO.class); 
 			User user = userDAO.findById(db.getInt("user_id"));
-			c.setUser(user);
+			p.setUser(user);
 			
 			break;
 		}
 		
-		return c;
+		return p;
 	}
 }

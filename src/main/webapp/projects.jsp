@@ -55,23 +55,23 @@
 		            <tbody>
 		            	<c:forEach var="proj" items="${projects}">
 							<tr>
-			                    <td>${comp.getName()}</td>
-			                    <td>${comp.getDescription()}</td>
-			                    <td>${comp.getStart()}</td>
-			                    <td>${comp.getEnd()}</td>
-			                    <td>${comp.getUser().getName()}</td>				                    
+			                    <td>${proj.getName()}</td>
+			                    <td>${proj.getDescription()}</td>
+			                    <td>${proj.getStart()}</td>
+			                    <td>${proj.getEnd()}</td>
+			                    <td>${proj.getUser().getName()}</td>				                    
 			                    
 			                    <td class="actions">
 			                        <a class="btn btn-info btn-xs" 
-			                           href="${pageContext.request.contextPath}/project/update?companyId=${comp.getId()}" >
+			                           href="${pageContext.request.contextPath}/project/update?projectId=${proj.getId()}">
 			                           <span class="glyphicon glyphicon-edit"></span>
 			                        </a>
 			                    </td>
 			                    
 			                    <td class="actions">
 			                        <a class="btn btn-danger btn-xs modal-remove"
-			                          project-id="${comp.getId()}" 
-			                           project-name="${comp.getName()}" data-toggle="modal" 
+			                          project-id="${proj.getId()}" 
+			                           project-name="${proj.getName()}" data-toggle="modal" 
 			                           data-target="#delete-modal"  href="#"><span 
 			                           class="glyphicon glyphicon-trash"></span></a>
 			                    </td>
@@ -107,7 +107,7 @@
 		   
 		    $(".modal-remove").click(function () {
 	            var projectName = $(this).attr('project-name');
-	            var projectId = $(this).attr('company-id');
+	            var projectId = $(this).attr('project-id');
 	            $(".modal-body #hiddenValue").text("O projeto '"+projectName+"'");
 	            $("#id").attr( "value", projectId);
 	            $("#form").attr( "action","project/delete");

@@ -59,11 +59,13 @@
 						    required oninvalid="this.setCustomValidity('Por favor, informe o usuário.')"
 						    oninput="setCustomValidity('')">
 					  <option value="">Selecione um usuário</option>
+					  <c:if test="${not empty users}">
 					  <c:forEach var="user" items="${users}">
 					  	<option value="${user.getId()}">
 					  		${user.getName()}
 					  	</option>	
 					  </c:forEach>
+					  </c:if>
 					</select>
 				</div>
 			</div>

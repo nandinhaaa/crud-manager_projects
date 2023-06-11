@@ -19,6 +19,8 @@ import model.dao.DAOFactory;
 		"/company/insert", "/company/delete"})
 public class CompaniesController extends HttpServlet{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {

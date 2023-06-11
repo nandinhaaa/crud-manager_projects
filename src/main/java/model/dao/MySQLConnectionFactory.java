@@ -9,8 +9,7 @@ import model.ModelException;
 public class MySQLConnectionFactory {
 
 	// Nome do Driver (classe) e URL do banco
-	private static final String JDBC_DRIVER_NAME = 
-			"com.mysql.jdbc.Driver";
+	private static final String JDBC_DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
 	
 //	private static final String DATABASE_URL = 
 //			"jdbc:mysql://127.0.0.1/facebook";
