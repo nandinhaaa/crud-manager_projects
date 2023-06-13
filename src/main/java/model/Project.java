@@ -11,6 +11,7 @@ public class Project {
 	private User user;
 
 	public Project() {
+		
 	}
 
 	public Project(int id) {

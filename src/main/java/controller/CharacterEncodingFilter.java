@@ -8,7 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
-
+//garantindo uma correta manipulação de caracteres especiais
 @WebFilter(urlPatterns="/*")
 public class CharacterEncodingFilter implements Filter {
 

@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.Date;
 
 import model.ModelException;
-
+//facilita a execução de operações de banco de dados
 public class DBHandler {
 	private Connection connection = null;
 	private PreparedStatement preparedStatement = null;
@@ -32,7 +32,7 @@ public class DBHandler {
 		validatePreparedStatement();
 		
 		try {
-			preparedStatement.setString(i, value);
+			preparedStatement.setString(i, value); //declaração SQL pré-compilada 
 		} catch (SQLException e) {
 			close();
 			throw new ModelException("Erro ao atribuir string", e);
@@ -43,7 +43,7 @@ public class DBHandler {
 		validatePreparedStatement();
 		
 		try {
-			preparedStatement.setNull(i, java.sql.Types.DATE);
+			preparedStatement.setNull(i, java.sql.Types.DATE); 
 		} catch (SQLException e) {
 			close();
 			throw new ModelException("Erro ao atribuir null", e);
@@ -79,7 +79,7 @@ public class DBHandler {
 		try {
 			return preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new ModelException("Erro ao executar SQL", e);
+			throw new ModelException("Erro ao executar SQL" + e.getMessage(), e);
 		} finally{
 			close();
 		}
@@ -137,7 +137,7 @@ public class DBHandler {
 	
 	public String getString(String column) throws ModelException {
 		try {
-			return resultSet.getString(column);
+			return resultSet.getString(column); //contém os registros retornados pelo banco de dados que correspondem aos critérios da consulta.
 		} catch (SQLException e) {
 			close();
 			throw new ModelException("Erro ao chamar getString", e);

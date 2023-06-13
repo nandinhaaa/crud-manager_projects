@@ -1,5 +1,5 @@
 package model.dao;
-
+//persistência de dados relacionadas a usuários
 import java.util.List;
 
 import model.ModelException;

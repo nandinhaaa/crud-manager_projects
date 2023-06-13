@@ -30,3 +30,5 @@ public class CommonsController {
 	    }
 	}
 }
+//responsavel por intermediar as
+//requisições dos usuários, manipular os dados necessários e enviar esses dados para a camada de visualização.

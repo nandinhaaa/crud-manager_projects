@@ -9,7 +9,6 @@
 <body>
 	<%@include file="nav-menu.jsp"%>
 
-
 	<div id="container" class="container-fluid">
 		<h3 class="page-header">Adicionar Projetos</h3>
 
@@ -22,7 +21,8 @@
 						class="form-control" id="name" name="name" autofocus="autofocus"
 						placeholder="Nome Projeto" required
 						oninvalid="this.setCustomValidity('Por favor, informe o nome do seu projeto.')"
-						oninput="setCustomValidity('')" />
+						oninput="setCustomValidity('')"
+						value="${not empty project ? project.getName() : ''}" />
 				</div>
 
 				<div class="form-group col-md-6">
@@ -30,7 +30,8 @@
 						class="form-control" id="description" name="description"
 						autofocus="autofocus" placeholder="Projeto utilizado" required
 						oninvalid="this.setCustomValidity('Por favor, informe a descricao.')"
-						oninput="setCustomValidity('')" />
+						oninput="setCustomValidity('')"
+						value="${not empty project ? project.getDescription() : ''}" />
 				</div>
 			</div>
 
@@ -40,7 +41,8 @@
 						class="form-control" id="start" name="start" autofocus="autofocus"
 						placeholder="Data de início" required
 						oninvalid="this.setCustomValidity('Por favor, informe a data de início.')"
-						oninput="setCustomValidity('')" />
+						oninput="setCustomValidity('')"
+						value="${not empty project ? project.getStart() : ''}" />
 				</div>
 
 				<div class="form-group col-md-4">
@@ -48,19 +50,21 @@
 						class="form-control" id="end" name="end" autofocus="autofocus"
 						placeholder="Data de saída"
 						oninvalid="this.setCustomValidity('Por favor, informe a data de saída')"
-						oninput="setCustomValidity('')" />
+						oninput="setCustomValidity('')"
+						value="${not empty project ? project.getEnd() : ''}" />
 				</div>
 
-
 				<div class="form-group col-md-4">
-					<label for="user">Usuário</label> <select id="user"
+					<label for="user">Usuário</label> <select id="userId"
 						class="form-control selectpicker" name="user" required
 						oninvalid="this.setCustomValidity('Por favor, informe o usuário.')"
 						oninput="setCustomValidity('')">
 						<option value="">Selecione um usuário</option>
 						<c:if test="${not empty users}">
 							<c:forEach var="user" items="${users}">
-								<option value="${user.getId()}">${user.getName()}</option>
+								<option value="${user.getId()}"
+									${not empty project && project.getUser().getId() == user.getId() ? 'selected' : ''}>
+									${user.getName()}</option>
 							</c:forEach>
 						</c:if>
 					</select>
@@ -68,19 +72,25 @@
 
 
 				<hr />
+
 				<div id="actions" class="row pull-right">
 					<div class="col-md-12">
-
 						<a href="${pageContext.request.contextPath}/projects"
 							class="btn btn-default">Cancelar</a>
 
-						<button type="submit" class="btn btn-primary">Cadastrar
-							Projeto</button>
+						<form action="/crud-manager/project/update" method="post">
+						
+							<input type="hidden" name="projectId" value="${project.id}">
+
+							<button type="submit" class="btn btn-primary">${not empty project ? "Alterar Projeto" : "Criar Projeto"}</button>
+						</form>
+
 					</div>
 				</div>
+			</div>
 		</form>
-
 	</div>
 
 </body>
 </html>
+
